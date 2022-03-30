@@ -20,7 +20,7 @@ namespace TiendaOnline.Web.Controllers
         // GET: Countries
         public async Task<IActionResult> Index()
         {
-            return View(await _context.countries.ToListAsync());
+            return View(await _context.Countries.ToListAsync());
         }
 
         // GET: Countries/Details/5
@@ -31,7 +31,7 @@ namespace TiendaOnline.Web.Controllers
                 return NotFound();
             }
 
-            var country = await _context.countries
+            var country = await _context.Countries
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (country == null)
             {
@@ -90,7 +90,7 @@ namespace TiendaOnline.Web.Controllers
                 return NotFound();
             }
 
-            var country = await _context.countries.FindAsync(id);
+            var country = await _context.Countries.FindAsync(id);
             if (country == null)
             {
                 return NotFound();
@@ -144,19 +144,19 @@ namespace TiendaOnline.Web.Controllers
             {
                 return NotFound();
             }
-            Country country = await _context.countries
+            Country country = await _context.Countries
             .FirstOrDefaultAsync(m => m.Id == id);
             if (country == null)
             {
                 return NotFound();
             }
-            _context.countries.Remove(country);
+            _context.Countries.Remove(country);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
         private bool CountryExists(int id)
         {
-            return _context.countries.Any(e => e.Id == id);
+            return _context.Countries.Any(e => e.Id == id);
         }
     }
 }
