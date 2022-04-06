@@ -12,8 +12,8 @@ using TiendaOnline.Web.Data;
 namespace TiendaOnline.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220330233715_continueDb")]
-    partial class continueDb
+    [Migration("20220405235613_inicialDB")]
+    partial class inicialDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -68,7 +68,7 @@ namespace TiendaOnline.Web.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("countries");
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("TiendaOnline.Web.Models.Department", b =>
