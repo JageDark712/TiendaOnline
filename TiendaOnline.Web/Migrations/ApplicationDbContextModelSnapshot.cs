@@ -66,7 +66,7 @@ namespace TiendaOnline.Web.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("countries");
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("TiendaOnline.Web.Models.Department", b =>
