@@ -15,9 +15,10 @@ namespace TiendaOnline.Web.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<City>().HasIndex(t => t.Name).IsUnique();
+            
             modelBuilder.Entity<Country>().HasIndex(c => c.Name).IsUnique();
-            modelBuilder.Entity<Department>().HasIndex(t => t.Name).IsUnique();
+            modelBuilder.Entity<Department>().HasIndex("Name", "CountryId").IsUnique();
+            modelBuilder.Entity<City>().HasIndex("Name", "DepartmentId").IsUnique();
         }
     }
 }

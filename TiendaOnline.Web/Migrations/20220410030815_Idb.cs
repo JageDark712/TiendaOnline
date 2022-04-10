@@ -4,7 +4,7 @@
 
 namespace TiendaOnline.Web.Migrations
 {
-    public partial class inicialDB : Migration
+    public partial class Idb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -65,10 +65,11 @@ namespace TiendaOnline.Web.Migrations
                 column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cities_Name",
+                name: "IX_Cities_Name_DepartmentId",
                 table: "Cities",
-                column: "Name",
-                unique: true);
+                columns: new[] { "Name", "DepartmentId" },
+                unique: true,
+                filter: "[DepartmentId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Countries_Name",
@@ -82,10 +83,11 @@ namespace TiendaOnline.Web.Migrations
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Departments_Name",
+                name: "IX_Departments_Name_CountryId",
                 table: "Departments",
-                column: "Name",
-                unique: true);
+                columns: new[] { "Name", "CountryId" },
+                unique: true,
+                filter: "[CountryId] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

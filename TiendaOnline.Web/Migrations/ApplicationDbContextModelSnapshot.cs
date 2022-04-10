@@ -42,8 +42,9 @@ namespace TiendaOnline.Web.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
+                    b.HasIndex("Name", "DepartmentId")
+                        .IsUnique()
+                        .HasFilter("[DepartmentId] IS NOT NULL");
 
                     b.ToTable("Cities");
                 });
@@ -89,17 +90,20 @@ namespace TiendaOnline.Web.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
+                    b.HasIndex("Name", "CountryId")
+                        .IsUnique()
+                        .HasFilter("[CountryId] IS NOT NULL");
 
                     b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("TiendaOnline.Web.Models.City", b =>
                 {
-                    b.HasOne("TiendaOnline.Web.Models.Department", null)
+                    b.HasOne("TiendaOnline.Web.Models.Department", "Department")
                         .WithMany("Cities")
                         .HasForeignKey("DepartmentId");
+
+                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("TiendaOnline.Web.Models.Department", b =>

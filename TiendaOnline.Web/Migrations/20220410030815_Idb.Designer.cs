@@ -12,8 +12,8 @@ using TiendaOnline.Web.Data;
 namespace TiendaOnline.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220405235613_inicialDB")]
-    partial class inicialDB
+    [Migration("20220410030815_Idb")]
+    partial class Idb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,8 +44,9 @@ namespace TiendaOnline.Web.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
+                    b.HasIndex("Name", "DepartmentId")
+                        .IsUnique()
+                        .HasFilter("[DepartmentId] IS NOT NULL");
 
                     b.ToTable("Cities");
                 });
@@ -91,17 +92,20 @@ namespace TiendaOnline.Web.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
+                    b.HasIndex("Name", "CountryId")
+                        .IsUnique()
+                        .HasFilter("[CountryId] IS NOT NULL");
 
                     b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("TiendaOnline.Web.Models.City", b =>
                 {
-                    b.HasOne("TiendaOnline.Web.Models.Department", null)
+                    b.HasOne("TiendaOnline.Web.Models.Department", "Department")
                         .WithMany("Cities")
                         .HasForeignKey("DepartmentId");
+
+                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("TiendaOnline.Web.Models.Department", b =>
