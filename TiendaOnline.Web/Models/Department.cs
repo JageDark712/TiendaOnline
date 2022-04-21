@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace TiendaOnline.Web.Models
 {
@@ -16,7 +17,8 @@ namespace TiendaOnline.Web.Models
         public ICollection<City> Cities { get; set; }
         [Display(Name = "Numero de Ciudades")]
         public int CitiesNumber => Cities == null ? 0 : Cities.Count;
-        [NotMapped]
+        [JsonIgnore] //lo ignora en la respuesta json
+        [NotMapped] //no se crea en la base de datos
         public int IdCountry { get; set; }
     }
 }

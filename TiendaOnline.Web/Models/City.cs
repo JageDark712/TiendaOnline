@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace TiendaOnline.Web.Models
 {
@@ -11,7 +12,8 @@ namespace TiendaOnline.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string Name { get; set; }
         public Department Department { get; set; }
-        [NotMapped]
+        [JsonIgnore] //lo ignora en la respuesta json
+        [NotMapped] //no se crea en la base de datos
         public int IdDepartment { get; set; }
     }
 }

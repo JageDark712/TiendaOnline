@@ -139,7 +139,7 @@ namespace TiendaOnline.Web.Controllers
                     country.Departments.Add(department);
                     _context.Update(country);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Details), new { Id = department.IdCountry});
+                    return RedirectToAction($"{nameof(Details)}/{country.Id}");
                 }
                 catch (DbUpdateException dbUpdateException)
                 {
@@ -245,7 +245,7 @@ namespace TiendaOnline.Web.Controllers
                 {
                     _context.Update(department);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Details), new { Id = department.IdCountry });
+                    return RedirectToAction($"{nameof(Details)}/{department.IdCountry}");
                 }
                 catch (DbUpdateException dbUpdateException)
                 {
@@ -284,20 +284,11 @@ namespace TiendaOnline.Web.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            Country country = await _context.Countries.FindAsync(id);
-            _context.Countries.Remove(country);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
 
-        private bool CountryExists(int id)
-        {
-            return _context.Countries.Any(e => e.Id == id);
-        }
+        //private bool CountryExists(int id)
+        //{
+        //    return _context.Countries.Any(e => e.Id == id);
+        //}
 
         public async Task<IActionResult> DeleteDepartment(int? id)
         {
@@ -319,7 +310,7 @@ namespace TiendaOnline.Web.Controllers
                 .FirstOrDefault(d => d.Id == department.Id) != null);
             _context.Departments.Remove(department);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Details), new {country.Id});
+            return RedirectToAction($"{nameof(Details)}/{country.Id}");
         }
 
         public async Task<IActionResult> AddCity(int? id)
@@ -352,9 +343,11 @@ namespace TiendaOnline.Web.Controllers
                 }
                 try
                 {
-                    city.Id = 0; department.Cities.Add(city); _context.Update(department);
+                    city.Id = 0;
+                    department.Cities.Add(city);
+                    _context.Update(department);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(DetailsDepartment), new {department.Id});
+                    return RedirectToAction($"{nameof(DetailsDepartment)}/{department.Id}");
                 }
                 catch (DbUpdateException dbUpdateException)
                 {
@@ -401,8 +394,9 @@ namespace TiendaOnline.Web.Controllers
             {
                 try
                 {
-                    _context.Update(city); await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(DetailsDepartment),new { city.IdDepartment });
+                    _context.Update(city);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction($"{nameof(DetailsDepartment)}/{city.IdDepartment}");
                 }
                 catch (DbUpdateException dbUpdateException)
                 {
@@ -428,7 +422,8 @@ namespace TiendaOnline.Web.Controllers
             if (id == null) {
                 return NotFound();
             }
-            City city = await _context.Cities.FirstOrDefaultAsync(m => m.Id == id);
+            City city = await _context.Cities
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (city == null) {
                 return NotFound();
             }
@@ -437,7 +432,7 @@ namespace TiendaOnline.Web.Controllers
                 .FirstOrDefault(c => c.Id == city.Id) != null);
             _context.Cities.Remove(city);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(DetailsDepartment), new{department.Id});
+            return RedirectToAction($"{nameof(DetailsDepartment)}/{department.Id}");
         }
 
     }
