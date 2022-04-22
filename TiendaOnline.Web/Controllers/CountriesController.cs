@@ -396,7 +396,7 @@ namespace TiendaOnline.Web.Controllers
                 {
                     _context.Update(city);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(DetailsDepartment), new { city.IdDepartment });
+                    return RedirectToAction(nameof(DetailsDepartment), new {city.IdDepartment});
                 }
                 catch (DbUpdateException dbUpdateException)
                 {
