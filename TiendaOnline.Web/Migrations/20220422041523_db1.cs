@@ -4,7 +4,7 @@
 
 namespace TiendaOnline.Web.Migrations
 {
-    public partial class inicialdb2 : Migration
+    public partial class db1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

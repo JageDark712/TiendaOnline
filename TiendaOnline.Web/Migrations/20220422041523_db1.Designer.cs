@@ -12,8 +12,8 @@ using TiendaOnline.Web.Data;
 namespace TiendaOnline.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220421235243_inicialdb2")]
-    partial class inicialdb2
+    [Migration("20220422041523_db1")]
+    partial class db1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
